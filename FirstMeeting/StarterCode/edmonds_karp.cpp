@@ -8,20 +8,20 @@
 #include <algorithm>
 using namespace std;
  
+/* returns false if no path can be found from source to sink */ 
+/* it updates vector<int>& path therefore the vector variable passed in the function 
+ * have a new path after each iteration */ 
 bool BreathFirstSearch(const vector<vector<int> > &residualGraph, const int source, const int sink, vector<int> & path) {
     const int num_vertices = residualGraph.size();
     vector<bool> visited(num_vertices, false);
 
-    // Create a queue, enqueue source vertex and mark source vertex
     queue <int> q;
     q.push(source);
     visited[source] = true;
 
-    /* reset the path to zero */
     fill(path.begin(), path.end(), 0);
     path[source] = -1;
  
-    // Standard BFS Loop
     while (!q.empty()) {
         int u = q.front();
         q.pop();
@@ -35,8 +35,6 @@ bool BreathFirstSearch(const vector<vector<int> > &residualGraph, const int sour
         }
     }
     
-    // If we reached sink in BFS starting from source, then return
-    // true, else false
     return (visited[sink] == true);
 }
 
@@ -47,7 +45,12 @@ int FindMinimalResidualCapacity(const vector<vector<int> >& residualGraph, int s
     for (int v = sink; v != source; v = path[v]) { 
         int u = path[v];
 
-        path_flow = min(residualGraph[u][v], path_flow);
+        /* each iteration gets you a pair of vertices u and v between an edge in the path 
+         * so residualGraphp[u][v] is the residual capacity of an edge in the path 
+         * */
+
+        /* **** you code here **** */
+
     }
 
     return path_flow;
@@ -57,32 +60,20 @@ void UpdateResidualGraph(vector<vector<int> >& residualGraph, int source, int si
     int pathlen = path.size();
     for (int v = sink; v != source; v = path[v]) { 
         int u = path[v];
-        /* update normal edges */
-        residualGraph[u][v] -= path_flow;
 
-        /* update normal edges */
-        residualGraph[v][u] -= path_flow;
+        /* each iteration gets you a pair of vertices u and v between an edge in the path 
+         * so residualGraphp[u][v] is the residual capacity of an edge in the path 
+         * */
+
+        /* **** you code here **** */
     }
 }
 
 /* source and sink are the index of source and sink node */
 int Edmond_Karp(const std::vector<vector<int> > & residualGraph, int source, int sink) {
-    /* create a residualGraph by copying the capacity graph */
-    std::vector<vector<int> > rG(residualGraph);
-
-    /* the vector to save the new path computed by BFS */
-    std::vector<int> path(residualGraph.size(), 0);
     int max_flow = 0;
 
-    while (BreathFirstSearch(rG, source, sink, path)) {
-        /* find the minimal residual capacity on the path */
-        int path_flow = FindMinimalResidualCapacity(rG, source, sink, path);
-
-        /* update residual capacities of the edges and reverse edges */ 
-        UpdateResidualGraph(rG, source, sink, path, path_flow);
-
-        max_flow += path_flow;
-    }
+    /* **** you code here **** */
 
     return max_flow;
 }
