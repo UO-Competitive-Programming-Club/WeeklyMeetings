@@ -73,7 +73,7 @@ void UpdateResidualGraph(vector<vector<int> >& residual_graph,
 }
 
 /* source and sink are the index of source and sink node */
-int Edmond_Karp(const std::vector<vector<int> >& residual_graph,
+int EdmondKarp(const std::vector<vector<int> >& residual_graph,
         const int source, const int sink) {
 
     /* create a residual_graph by copying the capacity graph */
