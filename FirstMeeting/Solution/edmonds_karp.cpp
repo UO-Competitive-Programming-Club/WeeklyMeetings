@@ -7,8 +7,8 @@
 #include <bitset>
 #include <algorithm>
 using namespace std;
- 
-bool BreathFirstSearch(const vector<vector<int> >& residual_graph, 
+
+bool BreathFirstSearch(const vector<vector<int> >& residual_graph,
         const int source, const int sink, vector<int>& path) {
 
     const int num_vertices = residual_graph.size();
@@ -22,7 +22,7 @@ bool BreathFirstSearch(const vector<vector<int> >& residual_graph,
     /* reset the path to zero */
     fill(path.begin(), path.end(), 0);
     path[source] = -1;
- 
+
     // Standard BFS Loop
     while (!q.empty()) {
         int u = q.front();
@@ -36,19 +36,19 @@ bool BreathFirstSearch(const vector<vector<int> >& residual_graph,
             }
         }
     }
-    
+
     // If we reached sink in BFS starting from source, then return
     // true, else false
     return (visited[sink] == true);
 }
 
-int FindMinimalResidualCapacity(const vector<vector<int> >& residual_graph, 
+int FindMinimalResidualCapacity(const vector<vector<int> >& residual_graph,
         const int source, const int sink, const vector<int>& path) {
 
     int path_flow = INT_MAX,
         pathlen = path.size();
 
-    for (int v = sink; v != source; v = path[v]) { 
+    for (int v = sink; v != source; v = path[v]) {
         int u = path[v];
 
         path_flow = min(residual_graph[u][v], path_flow);
@@ -57,11 +57,11 @@ int FindMinimalResidualCapacity(const vector<vector<int> >& residual_graph,
     return path_flow;
 }
 
-void UpdateResidualGraph(vector<vector<int> >& residual_graph, 
+void UpdateResidualGraph(vector<vector<int> >& residual_graph,
         const int source, const int sink, const vector<int>& path, const int path_flow) {
 
     int pathlen = path.size();
-    for (int v = sink; v != source; v = path[v]) { 
+    for (int v = sink; v != source; v = path[v]) {
         int u = path[v];
 
         /* update normal edges */
@@ -73,7 +73,7 @@ void UpdateResidualGraph(vector<vector<int> >& residual_graph,
 }
 
 /* source and sink are the index of source and sink node */
-int Edmond_Karp(const std::vector<vector<int> >& residual_graph, 
+int Edmond_Karp(const std::vector<vector<int> >& residual_graph,
         const int source, const int sink) {
 
     /* create a residual_graph by copying the capacity graph */
@@ -87,7 +87,7 @@ int Edmond_Karp(const std::vector<vector<int> >& residual_graph,
         /* find the minimal residual capacity on the path */
         int path_flow = FindMinimalResidualCapacity(RG, source, sink, path);
 
-        /* update residual capacities of the edges and reverse edges */ 
+        /* update residual capacities of the edges and reverse edges */
         UpdateResidualGraph(RG, source, sink, path, path_flow);
 
         max_flow += path_flow;
@@ -110,6 +110,6 @@ int main(void) {
             cin >> graph[i][j];
         }
     }
-     
+
     std::cout << Edmond_Karp(graph, source, sink) << std::endl;
 }
