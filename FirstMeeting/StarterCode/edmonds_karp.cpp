@@ -52,7 +52,7 @@ int FindMinimalResidualCapacity(const vector<vector<int> >& residual_graph,
          * so residual_graphp[u][v] is the residual capacity of an edge in the path 
          * */
 
-        /* **** you code here **** */
+        /* **** your code here **** */
 
     }
 
@@ -70,7 +70,7 @@ void UpdateResidualGraph(vector<vector<int> >& residual_graph,
          * so residual_graphp[u][v] is the residual capacity of an edge in the path 
          * */
 
-        /* **** you code here **** */
+        /* **** your code here **** */
     }
 }
 
@@ -87,7 +87,7 @@ int Edmond_Karp(const std::vector<vector<int> > & residual_graph,
      * you will pass this vector to bfs */
     std::vector<int> path(residual_graph.size(), 0);
 
-    /* **** you code here **** */
+    /* **** your code here **** */
 
     return max_flow;
 }
