@@ -1,0 +1,52 @@
+algorithm EdmondsKarp
+    input:
+        C[1..n, 1..n] (Capacity matrix)
+        E[1..n, 1..?] (Neighbour lists)
+        s             (Source)
+        t             (Sink)
+    output:
+        f             (Value of maximum flow)
+        F             (A matrix giving a legal flow with the maximum value)
+    f := 0 (Initial flow is zero)
+    F := array(1..n, 1..n) (Residual capacity from u to v is C[u,v] - F[u,v])
+    forever
+        m, P := BreadthFirstSearch(C, E, s, t, F)
+        if m = 0
+            break
+        f := f + m
+        (Backtrack search, and write flow)
+        v := t
+        while v ≠ s
+            u := P[v]
+            F[u,v] := F[u,v] + m
+            F[v,u] := F[v,u] - m
+            v := u
+    return (f, F)
+
+
+algorithm BreadthFirstSearch
+    input:
+        C, E, s, t, F
+    output:
+        M[t]          (Capacity of path found)
+        P             (Parent table)
+    P := array(1..n)
+    for u in 1..n
+        P[u] := -1
+    P[s] := -2 (make sure source is not rediscovered)
+    M := array(1..n) (Capacity of found path to node)
+    M[s] := ∞
+    Q := queue()
+    Q.offer(s)
+    while Q.size() > 0
+        u := Q.poll()
+        for v in E[u]
+            (If there is available capacity, and v is not seen before in search)
+            if C[u,v] - F[u,v] > 0 and P[v] = -1
+                P[v] := u
+                M[v] := min(M[u], C[u,v] - F[u,v])
+                if v ≠ t
+                    Q.offer(v)
+                else
+                    return M[t], P
+    return 0, P
