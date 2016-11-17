@@ -3,7 +3,7 @@ import queue
 def get_input():
     """
     first line numV is the number of vertices of the graph
-    second line contains the index of source and sink vertices 
+    second line contains the index of source and sink vertices
     next numV lines is the matrix representation of the graph
     """
     numV = int(input.strip())
@@ -13,7 +13,7 @@ def get_input():
     for i in range(numV):
         graphMatrix.append(list(map(int, input().split())))
     return (numV, source, sink, graphMatrix)
-                    
+
 def process_bfs_backtrail(sink, backtrail):
     path = []
     cur = sink
@@ -34,7 +34,7 @@ def find_path_bottleneck(path, graphMatrix):
         cur = next-1
         curMin = min(curMin, graphMatrix[path[cur]][path[next]])
     return curMin
-    
+
 def bfs(numV, source, sink, graphMatrix):
     """
     Returns a tuple containing (bottleneck, augmentingPath)
@@ -79,7 +79,7 @@ def edmonds_karp(numV, source, sink, graphMatrix):
         # Your code here
         ##########################################
     return flow
-    
+
 def update_residual_graph(pathCapacity, path, graphMatrix):
     # For each edge on the path, subtract pathCapacity from the forward edge
     # and add it to the backwards edge in graphMatrix

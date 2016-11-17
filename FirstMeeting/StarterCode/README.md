@@ -2,7 +2,7 @@
 
 ## Input format  
 * first line **n** is the number of vertices of the graph
-* second line contains the index of source and sink vertices 
+* second line contains the index of source and sink vertices
 * next **n** line is the matrix representation of the graph
 
 ## How to compile and Run
@@ -13,10 +13,13 @@ a.out < input
 ```
 
 #### For Java
-Use your favorite IDE :)
+```
+make java
+java EdmondsKarp
+```
+**EdmondsKarp** is the class name
 
 #### For Python
 ```
-edmonds_karp.py < input
+python3 edmonds_karp.py < input
 ```
-
