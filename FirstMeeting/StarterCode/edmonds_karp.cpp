@@ -77,7 +77,7 @@ void UpdateResidualGraph(vector<vector<int> >& residual_graph,
 }
 
 /* source and sink are the index of source and sink node */
-int EdmondKarp(const std::vector<vector<int> > & residual_graph,
+int EdmondsKarp(const std::vector<vector<int> > & residual_graph,
         const int source, const int sink) {
 
     int max_flow = 0;
@@ -109,5 +109,5 @@ int main(void) {
         }
     }
 
-    std::cout << Edmond_Karp(graph, source, sink) << std::endl;
+    std::cout << EdmondsKarp(graph, source, sink) << std::endl;
 }

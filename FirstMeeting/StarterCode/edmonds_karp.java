@@ -43,7 +43,7 @@ class EdmondsKarp {
     /* ********************* ignore the code above this line ******************** */
 
 
-    void UpdateResidualGraph(int residual_graph[][], int source, int sink, int path[], int path_flow) {
+    void updateResidualGraph(int residual_graph[][], int source, int sink, int path[], int path_flow) {
         for (int v = sink; v != source; v = path[v]) {
             int u = path[v];
             /* each iteration gets you a pair of vertices u and v between an edge in the path
@@ -54,7 +54,7 @@ class EdmondsKarp {
         }
     }
 
-    int FindMinimalResidualCapacity(int residual_graph[][], int source, int sink, int path[]) {
+    int findMinimalResidualCapacity(int residual_graph[][], int source, int sink, int path[]) {
         int path_flow = Integer.MAX_VALUE;
         for (int v = sink; v != source; v = path[v]) {
             int u = path[v];
@@ -69,7 +69,7 @@ class EdmondsKarp {
     }
 
     /* source and sink are the index of source and sink node */
-    int Edmond_Karp(int input_graph[][], int source, int sink) {
+    int edmondsKarp(int input_graph[][], int source, int sink) {
         int numOfVertices = input_graph.length;
 
         /* create a residual_graph by copying the capacity graph */
@@ -100,6 +100,6 @@ class EdmondsKarp {
         EdmondsKarp m = new EdmondsKarp();
 
         System.out.println("The maximum possible flow is " +
-                           m.Edmond_Karp(graph, 0, 5));
+                           m.edmondsKarp(graph, 0, 5));
     }
 }
