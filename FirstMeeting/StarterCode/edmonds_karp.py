@@ -2,11 +2,11 @@ import queue
 
 def get_input():
     """
-    first line numV is the number of vertices of the graph
-    second line contains the index of source and sink vertices
-    next numV lines is the matrix representation of the graph
-    """
-    numV = int(input.strip())
+        first line numV is the number of vertices of the graph
+        second line contains the index of source and sink vertices
+        next numV lines is the matrix representation of the graph
+        """
+    numV = int(input().strip())
     source, sink = map(int, input().split())
     graphMatrix = []
     # get matrix representation of graph:
@@ -18,7 +18,7 @@ def process_bfs_backtrail(sink, backtrail):
     path = []
     cur = sink
     prev = backtrail[sink]
-    while prev != -1:
+    while cur != -1:
         path.append(cur)
         cur = prev
         prev = backtrail[prev]
@@ -27,8 +27,8 @@ def process_bfs_backtrail(sink, backtrail):
 
 def find_path_bottleneck(path, graphMatrix):
     """
-    Returns the lowest residual capacity of any edge in path
-    """
+        Returns the lowest residual capacity of any edge in path
+        """
     curMin = float("inf")
     for next in range(1, len(path)):
         cur = next-1
@@ -37,20 +37,20 @@ def find_path_bottleneck(path, graphMatrix):
 
 def bfs(numV, source, sink, graphMatrix):
     """
-    Returns a tuple containing (bottleneck, augmentingPath)
-    Bottleneck is the lowest residual capacity value of any edge in the path.
-    If no augmenting path exists, returns (0, [])
-    """
+        Returns a tuple containing (bottleneck, augmentingPath)
+        Bottleneck is the lowest residual capacity value of any edge in the path.
+        If no augmenting path exists, returns (0, [])
+        """
     notVisited = set(range(numV))
-    q = queue.queue()
-    q.add((source, -1))
+    q = queue.Queue()
+    q.put((source, -1))
     # We will keep track of the shortest path from each node to the source
     # using backtrail. backtrail[node] points to the next node in the path
     # back to source
     backtrail = [0 for i in range(numV)]
     while not q.empty():
         curNode, prev = q.get()
-        if curNode not in notVisited:
+        if curNode in notVisited:
             notVisited.remove(curNode)
             backtrail[curNode] = prev
             if curNode == sink:
@@ -58,7 +58,7 @@ def bfs(numV, source, sink, graphMatrix):
                 return (find_path_bottleneck(path, graphMatrix), path)
             for otherNode in notVisited:
                 if graphMatrix[curNode][otherNode] > 0:
-                    q.add((otherNode, curNode))
+                    q.put((otherNode, curNode))
     return (0, [])
 ##################################################
 # Ignore code above this line
@@ -69,7 +69,7 @@ def edmonds_karp(numV, source, sink, graphMatrix):
     Returns the maximum flow value (an integer)
     """
     flow = 0
-    while true:
+    while True:
         # Find an augmenting path:
         pathCapacity, path = bfs(numV, source, sink, graphMatrix)
         if pathCapacity == 0:
