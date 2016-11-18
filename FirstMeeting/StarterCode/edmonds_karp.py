@@ -87,3 +87,9 @@ def update_residual_graph(pathCapacity, path, graphMatrix):
     # Your code here
     ###################################################
     return
+
+def main():
+    print(edmonds_karp(*get_input()))
+
+if __name__ == "__main__":
+    main()
